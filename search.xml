@@ -2,7 +2,7 @@
 <search>
   <entry>
     <title>UC-OWOD论文精读</title>
-    <url>/2022/11/OWOD/PaperReading/UCOWODPaperReview.html</url>
+    <url>/2022/11/PaperReading/OWOD/UCOWODPaperReview.html</url>
     <content><![CDATA[<h1>UC-OWOD</h1>
 <h2 id="概要">概要</h2>
 <p>主要贡献:</p>
@@ -110,8 +110,8 @@ where\quad F_i&amp;=\sum_iP_{ij}
 <p>而在精炼未知聚类阶段,只用KL散度作为损失。</p>
 ]]></content>
       <categories>
-        <category>开放世界目标检测</category>
         <category>论文阅读</category>
+        <category>开放世界目标检测</category>
       </categories>
       <tags>
         <tag>深度学习</tag>
@@ -405,6 +405,24 @@ where\quad F_i&amp;=\sum_iP_{ij}
       </categories>
       <tags>
         <tag>深度学习</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>开集目标检测的一些名词</title>
+    <url>/2022/11/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/OWOD/index.html</url>
+    <content><![CDATA[<p>最近主要研究的方向是开放世界目标检测，在阅读论文的过程中，接触到了很多新的名词，有的比较容易混淆，特此做个记录，以便随手查阅。</p>
+<h1>Open Set Object Detection (OSOD)</h1>
+<h1>Open Set Recognition (OSR)</h1>
+<h1>Open Vocabulary Object Detection (OVOD)</h1>
+<h1>Open World Object Detection (OWOD)</h1>
+<h1>彼此之间的关系</h1>
+]]></content>
+      <categories>
+        <category>深度学习</category>
+        <category>开放世界目标检测</category>
+      </categories>
+      <tags>
+        <tag>基础名词概念</tag>
       </tags>
   </entry>
 </search>
