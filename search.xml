@@ -409,13 +409,20 @@ where\quad F_i&amp;=\sum_iP_{ij}
   </entry>
   <entry>
     <title>开集目标检测的一些名词</title>
-    <url>/2022/11/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/OWOD/index.html</url>
+    <url>/2022/11/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/OWOD/OWODWords.html</url>
     <content><![CDATA[<p>最近主要研究的方向是开放世界目标检测，在阅读论文的过程中，接触到了很多新的名词，有的比较容易混淆，特此做个记录，以便随手查阅。</p>
 <h1>Open Set Object Detection (OSOD)</h1>
+<p>开集检测。</p>
 <h1>Open Set Recognition (OSR)</h1>
 <h1>Open Vocabulary Object Detection (OVOD)</h1>
+<p>在推理的时候，所有出现的标签构成的集合是无穷大的。例如<strong>CLIP</strong>模型，你可以询问一张图片是否属于猫，是否属于狗，是否属于奥巴马。。。任何词汇xxx都可以作为标签来询问模型&quot;这张图片是xxx吗?&quot;因此模型输出的标签集合是无穷集。</p>
 <h1>Open World Object Detection (OWOD)</h1>
-<h1>彼此之间的关系</h1>
+<p>开放世界目标检测是一个更加大的概念，涵盖了Open-Set(检出未知类)以及增量持续学习。</p>
+<h1>K-Shot (K=Zero,One,…Few)</h1>
+<p><strong>Zero-Shot</strong>即在训练的时候根本没见过猫，而被要求在测试推理的时候检测猫，这就是zero-shot任务，开放目标检测的核心任务。</p>
+<p><strong>One-Shot</strong>的意思是，在训练阶段只看见过一张猫的图片，在测试阶段需要检出猫的任务。</p>
+<p>更加一般化的，在训练阶段只见过K(<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>K</mi><mo>∈</mo><mo stretchy="false">{</mo><mn>0</mn><mo separator="true">,</mo><mn>1</mn><mo separator="true">,</mo><mn>2</mn><mo separator="true">,</mo><mi mathvariant="normal">.</mi><mi mathvariant="normal">.</mi><mi mathvariant="normal">.</mi><mi>n</mi><mo stretchy="false">}</mo></mrow><annotation encoding="application/x-tex">K\in \{0,1,2,...n\}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.7224em;vertical-align:-0.0391em;"></span><span class="mord mathnormal" style="margin-right:0.07153em;">K</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">∈</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">{</span><span class="mord">0</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord">1</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord">2</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord">...</span><span class="mord mathnormal">n</span><span class="mclose">}</span></span></span></span>)次猫的图片，那么测试时检测猫就是K-Shot任务。对于相对而言比较小的K，K-Shot可以被称之为<strong>Few-Shot</strong>(即顾名思义，训练的时候看见的次数不多)。</p>
+<h1></h1>
 ]]></content>
       <categories>
         <category>深度学习</category>
