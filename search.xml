@@ -408,10 +408,10 @@ where\quad F_i&amp;=\sum_iP_{ij}
       </tags>
   </entry>
   <entry>
-    <title>开集目标检测的一些名词</title>
+    <title>厚礼谢</title>
     <url>/2022/11/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/OWOD/OWODWords.html</url>
     <content><![CDATA[<p>最近主要研究的方向是开放世界目标检测，在阅读论文的过程中，接触到了很多新的名词，有的比较容易混淆，特此做个记录，以便随手查阅。</p>
-<h1>Open Set Object Detection (OSOD)</h1>
+<h1>Open Set Object Detect ion (OSOD)</h1>
 <p>开集检测。</p>
 <h1>Open Set Recognition (OSR)</h1>
 <h1>Open Vocabulary Object Detection (OVOD)</h1>
