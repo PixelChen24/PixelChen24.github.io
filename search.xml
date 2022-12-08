@@ -397,10 +397,10 @@ where\quad F_i&amp;=\sum_iP_{ij}
   </entry>
   <entry>
     <title>KnowledgeDistillation知识蒸馏</title>
-    <url>/2022/11/%E8%AE%BA%E6%96%87%E7%B2%BE%E8%AF%BB/%E6%96%B9%E6%B3%95/index.html</url>
+    <url>/2022/11/PaperReading/%E6%96%B9%E6%B3%95/KnowledgeDistillation.html</url>
     <content><![CDATA[]]></content>
       <categories>
-        <category>论文精读</category>
+        <category>论文阅读</category>
         <category>方法</category>
       </categories>
       <tags>
@@ -430,6 +430,124 @@ where\quad F_i&amp;=\sum_iP_{ij}
       </categories>
       <tags>
         <tag>基础名词概念</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>GoogleDrive快速下载指南</title>
+    <url>/2022/12/%E5%B7%A5%E5%85%B7/GoogleDriveFastToDownload.html</url>
+    <content><![CDATA[<h1>骚操作：免费2G带宽下载GoogleDrive上的文件！</h1>
+<p>一般来说，很多深度学习开源代码仓库用的数据集都是放在GoogleDrive上面的，而且众所周知数据集一般是非常巨大的，小则数几g，多则几十g。由于一些奇妙的原因(懂的都懂)，我们大多数人是没办法把那么大的数据下载下来的，一旦网络不稳定，那么可能辛辛苦苦下载的全做废了。并且很多人的代码都是放在远程服务器的，而在远程服务器上搭建科学上网也是比较困难的，所以即便是费劲心思把数据集下载到了自己的本地电脑，也要花很长时间把它再上传到服务器，非常的低效。</p>
+<p>今天我就给大家介绍一种非常高效，速度奇快无比，一点也不消耗本地资源的下载GoogleDrive数据集到服务器的方法。本方法对条件要求极为简单:<strong>你只要能科学上网以及一个公网IP就行</strong>，对本地网速没有任何要求，只要能正常打开网页就够了。</p>
+<p>我的方法基本思路是，利用Google提供的API，我们可以在GoogleColab上用纯命令的方式把文件从Drive下载到GoogleColab的临时硬盘(一般来说免费80G)，然后我们继续在Colab上使用scp将文件传输到我们自己的服务器上！整个过程都只占用Colab的网络资源，实测下载速度可以达到250MB/s，也就是2G带宽**(不得不说Colab网速真牛逼)**</p>
+<p>听懂掌声！</p>
+<p>下面以<a href="https://drive.google.com/drive/folders/1Sr4_q0_m2f2SefoebB25Ix3N1VIAua0w">这个文件</a>(JPEGImages这个压缩包)为例，讲解具体操作步骤。</p>
+<h2 id="1-准备一些token以及ID">1.准备一些token以及ID</h2>
+<h3 id="1-1获取文件编号ID">1.1获取文件编号ID</h3>
+<p>首先我们需要知道需要下载的文件ID编号是多少，我们只需要右键点击我们需要下载的文件，点击&quot;获取链接&quot;-&gt;&quot;复制链接&quot;即可得到一个指向这个文件的链接</p>
+<p><img src="https://markdown-bed-pixel.oss-cn-shanghai.aliyuncs.com/typora/image-20221206110218514.webp" alt="获取链接"></p>
+<p><img src="https://markdown-bed-pixel.oss-cn-shanghai.aliyuncs.com/typora/image-20221206110258941.webp" alt="复制链接"></p>
+<p>好的，现在你可以把这个链接粘贴到任意地方，然后观察这个链接</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">https://drive.google.com/file/d/1I2Nx4S6XELRpYqHqqEA-R7mt3OK5DMJH/view?usp=share_link</span><br></pre></td></tr></table></figure>
+<p>中间一大长串字符<code>1I2Nx4S6XELRpYqHqqEA-R7mt3OK5DMJH</code>就是这个文件的ID编号！</p>
+<h3 id="1-2-获取GoogleToken">1.2 获取GoogleToken</h3>
+<p>为了使用Google提供的API，我们必须要有令牌(Token)。</p>
+<p>进入<a href="https://developers.google.com/oauthplayground/">OAuth2.0Playground</a>，在左侧Step1下拉栏中找到<strong>Drive API v3</strong>，展开之后选中<strong><a href="https://www.googleapis.com/auth/drive.readonly">https://www.googleapis.com/auth/drive.readonly</a></strong>，点击右下方&quot;Authorize APIs&quot;，会提示让你登录Google账号以授权操作。</p>
+<p><img src="https://markdown-bed-pixel.oss-cn-shanghai.aliyuncs.com/typora/image-20221206113410259.webp" alt="选择API"></p>
+<p>进入STEP2，点击<strong>Exchange authorization code for tokens</strong>，即可获取到我们需要的&quot;Access token&quot;，将这个字符串复制记录下来。</p>
+<p><img src="https://markdown-bed-pixel.oss-cn-shanghai.aliyuncs.com/typora/image-20221206113944081.webp" alt="image-20221206113944081"></p>
+<p><em>注意，这个token有效时间只有一个小时，过期了就无法通过这个token下载文件了，过期后需要刷新。一个小时的时间绰绰有余，因为colab下载的速度实在是非常非常快，按每秒钟下载200MB来计算，一小时我们可以下载703GB的文件，肯定是够用的。</em></p>
+<hr>
+<h2 id="2-使用纯命令将文件下载到Colab">2.使用纯命令将文件下载到Colab</h2>
+<p>在colab中新建一个笔记本，新建一个代码块，输入以下命令:</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">!curl -H &quot;Authorization: Bearer YYYYY&quot; https://www.googleapis.com/drive/v3/files/XXXXX?alt=media -o ZZZZZ</span><br></pre></td></tr></table></figure>
+<p>其中YYYY就是1.2中讲到的获取到的Access token，XXXX是1.1中的获取到的文件ID编号,zzzz就是你想要另存为的文件名称，例如<code>example.zip</code>，<code>example.mp4</code>等等。</p>
+<p>按下执行按钮，就可以看见colab开始下载啦！</p>
+<p><img src="https://markdown-bed-pixel.oss-cn-shanghai.aliyuncs.com/typora/image-20221206114512675.webp" alt="image-20221206114512675">可以看见下载速度能到到240MB/s，可以说是光速下载了！</p>
+<h2 id="3-将文件从Colab上传到自己的服务器">3.将文件从Colab上传到自己的服务器</h2>
+<h3 id="3-1创建公钥">3.1创建公钥</h3>
+<p>创建一个代码块，输入并运行</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">!ssh-keygen -t rsa</span><br></pre></td></tr></table></figure>
+<p>这时候会提示要生成的目录以及管理密码，不用任何操作，一直按enter就行，直到他输出好几行奇奇怪怪的字符，那么公钥就生成完毕了。</p>
+<p><img src="https://markdown-bed-pixel.oss-cn-shanghai.aliyuncs.com/typora/image-20221206115601996.webp" alt="image-20221206115601996"></p>
+<p>公钥保存在colab的位置显示在输出的第二行，例如我这里默认的就是<code>/root/.ssh/id_rsa</code>。</p>
+<h3 id="3-2将公钥复制到服务器">3.2将公钥复制到服务器</h3>
+<p>刚才你创建的公钥就是一个.pub文件，内容很少可能就几个KB，因此我们可以直接把他从colab上下载到本地，然后上传到自己的服务器。</p>
+<p>新建一个代码块，输入并运行</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">!cp /root/.ssh/id_rsa.pub ./</span><br></pre></td></tr></table></figure>
+<p>这句命令将公钥.pub文件复制到了colab当前工作目录，你在左侧边栏的文件管理中可以看到这个<code>id_rsa.pub</code>文件，把他下载到你的本地电脑，然后上传到你的服务器<code>~/.ssh/authorized_keys</code></p>
+<h3 id="3-3使用scp上传文件">3.3使用scp上传文件</h3>
+<p>新建代码块，输入</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">!scp -o StrictHostKeyChecking=no -P port filename user@address:path</span><br></pre></td></tr></table></figure>
+<p>其中port是你服务器的端口号,user是服务器用户名，filename是你刚刚下载的文件名，address是地址，path是服务器上接受这个文件的文件夹路径。</p>
+<p>万事俱备，就等上传完毕啦！</p>
+<h2 id="4-总结">4.总结</h2>
+<p>纵观整个过程，可以发现涉及本地网络下载的就只有那个几个KB的秘钥文件，其他的上传下载网络流量都在colab和你的服务器。下载数据集的速度由于是在google自家的平台上，因此网速超级快，而最后一步使用scp上传到你的服务器时，速度取决于你服务器的下行带宽和colab的上行带宽，一般来说colab上行速度应该是没有任何问题的，那就看你服务器下行带宽有多大咯。</p>
+<p>如果你只是想把数据从GoogleDrive下载到本地，不需要上传到服务器，其实也是可以用这个方法的。你可以去租用一个便宜的国内服务器，根据上述教程把数据上传到服务器，然后再把数据从服务器down到自己的电脑上。例如autodl平台的，新用户有10元代金券，你开一台主机(无卡模式开机)一小时只要一毛钱，10块代金券够你白嫖100小时，100小时总能把你的文件下载下来了吧！这个过程可能看上去有点多此一举，殊不知这个过程是不需要你有高速上网的魔法工具的！就相当于是直接从国内的GoogleDrive镜像高速下载文件！</p>
+<p>所以如果正确操作的话，一分钱都不用花，就可以把大文件从GoogleDrive上高速地带回家！</p>
+]]></content>
+      <categories>
+        <category>工具</category>
+      </categories>
+      <tags>
+        <tag>工具</tag>
+        <tag>科学上网</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>git基础使用指南</title>
+    <url>/2022/12/%E5%B7%A5%E5%85%B7/GitBasic.html</url>
+    <content><![CDATA[<h1>测试git是否已经正常配置</h1>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">ssh -T git@github.com</span><br></pre></td></tr></table></figure>
+<p>如果是已经正常配置了git，那么会出现:</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">Hi PixelChen24! You&#x27;ve successfully authenticated, but GitHub does not provide shell access.</span><br></pre></td></tr></table></figure>
+<hr>
+<h1>配置git</h1>
+<p>如果你已经通过了第一部分的测试，那么可以跳过这一部分。</p>
+<h2 id="创建ssh秘钥信息">创建ssh秘钥信息</h2>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">ssh-keygen -t rsa -C <span class="string">&quot;youremail@example.com&quot;</span></span></span><br></pre></td></tr></table></figure>
+<p>会询问key保存的地址以及设置本地key仓库的管理密码，直接全部默认按回车就行。</p>
+<hr>
+<h1>建立仓库</h1>
+<h2 id="初始化文件夹">初始化文件夹</h2>
+<p>对于一个已经存在于本地的项目，使用</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">git init</span><br></pre></td></tr></table></figure>
+<p>来配置这个项目。</p>
+<h2 id="开始跟踪文件">开始跟踪文件</h2>
+<p>使用</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">git add *</span><br></pre></td></tr></table></figure>
+<p>跟踪这个项目下所有的文件</p>
+<h2 id="提交本次修改">提交本次修改</h2>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">git commit -m &quot;comments&quot;</span><br></pre></td></tr></table></figure>
+<p>将本次的修改记录下来并提交到本地数据库</p>
+<h2 id="创建云端代码仓库">创建云端代码仓库</h2>
+<p>在GitHub上创建一个仓库，点击clone按钮，复制链接(注意是SSH，不是HTTPS)</p>
+<h2 id="推送代码">推送代码</h2>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">git remote add origin git@github.com:PixelChen24/OWOD_Graduate.git #相当于是为这个远程仓库起了个别名叫&quot;origin&quot;</span><br><span class="line">git push -u origin master # 向&quot;origin&quot;仓库也就是GitHub  的master分支提交代码</span><br></pre></td></tr></table></figure>
+<h2 id="拉取代码">拉取代码</h2>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">git pull origin &lt;远程分支名&gt;:&lt;本地分支名&gt;  # 在origin仓库中，把指定的远程分支拉取到本地分支</span><br></pre></td></tr></table></figure>
+]]></content>
+      <categories>
+        <category>工具</category>
+      </categories>
+      <tags>
+        <tag>工具</tag>
+        <tag>Git</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>每日英语</title>
+    <url>/2022/12/%E8%8B%B1%E8%AF%AD/index.html</url>
+    <content><![CDATA[<ul>
+<li>sibling 孪生的</li>
+</ul>
+<p>例句： ChatGPT is a sibling model to InstructGPT.</p>
+]]></content>
+      <categories>
+        <category>英语</category>
+      </categories>
+      <tags>
+        <tag>“英语”</tag>
+        <tag>日积月累</tag>
       </tags>
   </entry>
 </search>

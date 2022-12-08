@@ -2,6 +2,42 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>http://pixelchen.top/2022/12/%E5%B7%A5%E5%85%B7/GoogleDriveFastToDownload.html</loc>
+    
+    <lastmod>2022-12-08</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>http://pixelchen.top/2022/12/%E5%B7%A5%E5%85%B7/GitBasic.html</loc>
+    
+    <lastmod>2022-12-08</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>http://pixelchen.top/2022/12/%E8%8B%B1%E8%AF%AD/index.html</loc>
+    
+    <lastmod>2022-12-08</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>http://pixelchen.top/2022/11/PaperReading/%E6%96%B9%E6%B3%95/KnowledgeDistillation.html</loc>
+    
+    <lastmod>2022-12-08</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
     <loc>http://pixelchen.top/2022/11/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/OWOD/OWODWords.html</loc>
     
     <lastmod>2022-12-06</lastmod>
@@ -12,15 +48,6 @@
   
   <url>
     <loc>http://pixelchen.top/2022/11/PaperReading/OWOD/UCOWODPaperReview.html</loc>
-    
-    <lastmod>2022-11-20</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>http://pixelchen.top/2022/11/%E8%AE%BA%E6%96%87%E7%B2%BE%E8%AF%BB/%E6%96%B9%E6%B3%95/index.html</loc>
     
     <lastmod>2022-11-20</lastmod>
     
@@ -224,6 +251,41 @@
     <priority>0.2</priority>
   </url>
   
+  <url>
+    <loc>http://pixelchen.top/tags/%E5%B7%A5%E5%85%B7/</loc>
+    <lastmod>2022-12-08</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>http://pixelchen.top/tags/%E7%A7%91%E5%AD%A6%E4%B8%8A%E7%BD%91/</loc>
+    <lastmod>2022-12-08</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>http://pixelchen.top/tags/Git/</loc>
+    <lastmod>2022-12-08</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>http://pixelchen.top/tags/%E2%80%9C%E8%8B%B1%E8%AF%AD%E2%80%9D/</loc>
+    <lastmod>2022-12-08</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>http://pixelchen.top/tags/%E6%97%A5%E7%A7%AF%E6%9C%88%E7%B4%AF/</loc>
+    <lastmod>2022-12-08</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
 
   
   <url>
@@ -269,20 +331,6 @@
   </url>
   
   <url>
-    <loc>http://pixelchen.top/categories/%E8%AE%BA%E6%96%87%E7%B2%BE%E8%AF%BB/</loc>
-    <lastmod>2022-12-08</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>http://pixelchen.top/categories/%E8%AE%BA%E6%96%87%E7%B2%BE%E8%AF%BB/%E6%96%B9%E6%B3%95/</loc>
-    <lastmod>2022-12-08</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
     <loc>http://pixelchen.top/categories/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/</loc>
     <lastmod>2022-12-08</lastmod>
     <changefreq>weekly</changefreq>
@@ -291,6 +339,27 @@
   
   <url>
     <loc>http://pixelchen.top/categories/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/OWOD/</loc>
+    <lastmod>2022-12-08</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>http://pixelchen.top/categories/PaperReading/%E6%96%B9%E6%B3%95/</loc>
+    <lastmod>2022-12-08</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>http://pixelchen.top/categories/%E5%B7%A5%E5%85%B7/</loc>
+    <lastmod>2022-12-08</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>http://pixelchen.top/categories/%E8%8B%B1%E8%AF%AD/</loc>
     <lastmod>2022-12-08</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
