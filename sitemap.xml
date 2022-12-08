@@ -11,6 +11,15 @@
   </url>
   
   <url>
+    <loc>http://pixelchen.top/1970/01/PersonalSiteDevelopment/HexoBlogTutorial1.html</loc>
+    
+    <lastmod>2022-12-08</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
     <loc>http://pixelchen.top/2022/12/%E5%B7%A5%E5%85%B7/GitBasic.html</loc>
     
     <lastmod>2022-12-08</lastmod>
@@ -59,15 +68,6 @@
     <loc>http://pixelchen.top/2022/11/PaperReading/OWOD/OWDETRPaperReview.html</loc>
     
     <lastmod>2022-11-05</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>http://pixelchen.top/1970/01/PersonalSiteDevelopment/HexoBlogTutorial1.html</loc>
-    
-    <lastmod>2022-11-04</lastmod>
     
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
