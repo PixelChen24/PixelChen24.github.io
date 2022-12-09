@@ -408,7 +408,7 @@ where\quad F_i&amp;=\sum_iP_{ij}
       </tags>
   </entry>
   <entry>
-    <title>厚礼谢</title>
+    <title>开集目标检测任务定义名词</title>
     <url>/2022/11/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/OWOD/OWODWords.html</url>
     <content><![CDATA[<p>最近主要研究的方向是开放世界目标检测，在阅读论文的过程中，接触到了很多新的名词，有的比较容易混淆，特此做个记录，以便随手查阅。</p>
 <h1>Open Set Object Detect ion (OSOD)</h1>
@@ -548,6 +548,57 @@ where\quad F_i&amp;=\sum_iP_{ij}
       <tags>
         <tag>“英语”</tag>
         <tag>日积月累</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>linux解压文件</title>
+    <url>/2022/12/%E5%B7%A5%E5%85%B7/linux/CompressFileInLinux.html</url>
+    <content><![CDATA[<p>Linux 常用解压/压缩命令</p>
+<h1>解压</h1>
+<h2 id="unzip">unzip</h2>
+<p>将<code>filename</code>解压到<code>directories</code>目录下</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">unzip filename.zip -d directories</span><br></pre></td></tr></table></figure>
+<h2 id="tar">tar</h2>
+<ul>
+<li>对于<code>.tar</code>文件(下威孚)</li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">tar -xvf filename.tar -C directories</span><br></pre></td></tr></table></figure>
+<ul>
+<li>对于<code>.tar.gz</code>文件(下载威孚)</li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">tar -xzvf filename.tar -C directories</span><br></pre></td></tr></table></figure>]]></content>
+      <categories>
+        <category>工具</category>
+        <category>linux</category>
+      </categories>
+      <tags>
+        <tag>工具</tag>
+        <tag>linux</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>软链接</title>
+    <url>/2022/12/%E5%B7%A5%E5%85%B7/linux/SymbolLink.html</url>
+    <content><![CDATA[<p>在训练深度学习模型时，会用到大量的数据，我们不能保证数据存在的位置和项目代码在同一个文件夹下。</p>
+<p>比如VOC2012数据集存放在一个专门存放数据的硬盘<code>/media/user/Disk/Data/VOC2012</code>，而我们的代码在<code>/home/user/MyProject</code></p>
+<p>这时候我们在代码里面定位这个数据集的话就要把他的路径写到代码里面去</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">VOC_root=load_data(<span class="string">&quot;/media/user/Disk/Data/VOC2012&quot;</span>)</span><br></pre></td></tr></table></figure>
+<p>会比较麻烦，而且当把这个代码交给别人跑的时候别人也需要根据自己的情况自己重写这个地方的路径。</p>
+<h1>软链接</h1>
+<p>使用软链接，就可以在任意地方创建一个快捷方式，指向目标文件，不会占用额外空间，</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">ls -n /media/user/Disk/Data/VOC2012 /home/user/MyProject/VOC2012</span><br></pre></td></tr></table></figure>
+<p>现在你可以在<code>MyProject</code>下看见一个带箭头的文件夹，点进去之后会发现<code>/media/user/Disk/Data/VOC2012</code>中的所有数据都可以在这里被看见。</p>
+<p>现在在代码里，我们只需要写</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">VOC_root=load_data(<span class="string">&quot;VOC2012&quot;</span>)</span><br></pre></td></tr></table></figure>
+<p>就可以了！</p>
+]]></content>
+      <categories>
+        <category>工具</category>
+        <category>linux</category>
+      </categories>
+      <tags>
+        <tag>工具</tag>
+        <tag>linux</tag>
       </tags>
   </entry>
 </search>
