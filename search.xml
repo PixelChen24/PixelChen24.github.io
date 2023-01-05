@@ -719,4 +719,92 @@ where\quad F_i&amp;=\sum_iP_{ij}
         <tag>目标检测</tag>
       </tags>
   </entry>
+  <entry>
+    <title>Linux内核操作相关</title>
+    <url>/2022/12/%E5%B7%A5%E5%85%B7/linux/LinuxKernalRelated.html</url>
+    <content><![CDATA[<p>有时候在使用Linux发行版操作系统的时候，需要更换/删除/更新内核，在此总结一下对内核进行的操作。</p>
+<h1>查看内核</h1>
+<h2 id="查看当前正在使用的内核">查看当前正在使用的内核</h2>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">uname -r</span><br></pre></td></tr></table></figure>
+<h2 id="查看本机存在的内核">查看本机存在的内核</h2>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">sudo dpkg --list | grep linux-image</span><br></pre></td></tr></table></figure>
+<h1>删除内核</h1>
+<p>我们在apt upgrade升级内核的时候，旧内核不会被自动卸载，会占用磁盘空间。如果确定需要删除内核的话（删除内核有一定的风险性，如果不是磁盘空间不足迫不得已，不建议删除），可以用如下指令删除</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">sudo apt purge linux-image-&lt;version&gt;</span><br></pre></td></tr></table></figure>
+<p><code>version</code>填写存在的对应的内核版本号（注意千万不要把正在使用的内核给删了）</p>
+<h1>切换内核</h1>
+<p>可以通过修改grub配置文件<code>/etc/default/grub</code>的方式完成切换默认内核。</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">sudo vim /etc/default/grub</span><br></pre></td></tr></table></figure>
+<p>修改<code>GRUB_DEFAULT</code>的值。默认是0，即代表着在grub启动界面-&gt;高级选项列表中第一个内核。你可以把这个值改成你先要用的内核的index值，或者直接指定内核的名称(名称在上述1.2节中可以获取到)</p>
+]]></content>
+      <categories>
+        <category>工具</category>
+        <category>linux</category>
+      </categories>
+      <tags>
+        <tag>工具</tag>
+        <tag>linux</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>torch 中的几种卷积方式</title>
+    <url>/2023/01/torch/TorchConvolution.html</url>
+    <content><![CDATA[<h1>Conv1d</h1>
+<p>一般用于词向量卷积。</p>
+<p><img src="https://img-blog.csdnimg.cn/20200525213628650.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L29yRHJlYW0=,size_16,color_FFFFFF,t_70" alt=""></p>
+<h1>Conv2d</h1>
+<p>略，一般用于图像卷积。</p>
+<h1>Conv3d</h1>
+<p><img src="https://pic3.zhimg.com/v2-86e2bd970d07f9d6e1d921b248e45a3a_b.webp" alt=""></p>
+<p>相当于是<strong>共享权重的多通道二维卷积</strong>！一般用于视频任务的分析以及3D图像分割。</p>
+]]></content>
+      <categories>
+        <category>torch</category>
+      </categories>
+      <tags>
+        <tag>torch</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>torch中拼接向量</title>
+    <url>/2023/01/torch/TorchStackAndCat.html</url>
+    <content><![CDATA[<p>在torch中，我们要拼接两个张量时常用两个函数:<code>stack</code>和<code>cat</code>，这两种方法是有区别的。</p>
+<h1>cat</h1>
+<p>cat是在已经存在的维度上进行拼接。“concatenate the given sequence of eq tensors in the given dimension”。</p>
+<p>例如</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">&gt;&gt;&gt;a=torch.tensor([</span><br><span class="line">    [<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>],</span><br><span class="line">    [<span class="number">4</span>,<span class="number">5</span>,<span class="number">6</span>]</span><br><span class="line">])  <span class="comment"># shape=(2,3)</span></span><br><span class="line">&gt;&gt;&gt;b=torch.tensor([</span><br><span class="line">    [<span class="number">7</span>,<span class="number">8</span>,<span class="number">9</span>],</span><br><span class="line">    [<span class="number">0</span>,<span class="number">0</span>,<span class="number">0</span>]</span><br><span class="line">])  <span class="comment"># shape=(2,3)</span></span><br><span class="line">&gt;&gt;&gt;c=torch.cat((a,b),dim=<span class="number">0</span>)</span><br><span class="line">[</span><br><span class="line">    [<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>],</span><br><span class="line">    [<span class="number">4</span>,<span class="number">5</span>,<span class="number">6</span>],</span><br><span class="line">    [<span class="number">7</span>,<span class="number">8</span>,<span class="number">9</span>],</span><br><span class="line">    [<span class="number">0</span>,<span class="number">0</span>,<span class="number">0</span>]</span><br><span class="line">]  <span class="comment"># shape=(4,3)</span></span><br></pre></td></tr></table></figure>
+<h1>stack</h1>
+<p>stack是在新的维度上进行拼接，会产生新的维度。“concatenate sequence along a new dimension”</p>
+<p>还是上面那个例子，如果<code>c=torch.stack((a,b),dim=0)</code>，则</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">&gt;&gt;&gt;c=[</span><br><span class="line">    [</span><br><span class="line">        [<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>],</span><br><span class="line">        [<span class="number">4</span>,<span class="number">5</span>,<span class="number">6</span>]</span><br><span class="line">    ],</span><br><span class="line">    [</span><br><span class="line">        [<span class="number">7</span>,<span class="number">8</span>,<span class="number">9</span>],</span><br><span class="line">        [<span class="number">0</span>,<span class="number">0</span>,<span class="number">0</span>]</span><br><span class="line">    ]</span><br><span class="line">]  <span class="comment"># shape=(2,2,3)</span></span><br></pre></td></tr></table></figure>
+<h1>理解一下stack到底是做了什么</h1>
+<p>cat的操作很好理解，就是直接拼上去，所以维度并不会改变。那么stack的操作原理是什么样子的呢？</p>
+<p><strong>答：stack的操作本质上就是<code>unsqueeze(dim)</code>加上<code>cat</code>!</strong></p>
+<p><code>unsqueeze(dim)</code>知道是什么意思的吧？就是在dim维度上新增加一个维度，例如a.shape=(480,640)，那么a.unsqueeze(0)得到的张量shape=(1,480,640)。squeeze方法经常被用来增加batch这一维度。</p>
+<p>所以，<code>torch.stack((a,b),dim=0)</code>其实就等效于<code>torch.cat((a.squeeze(0),b.squeeze(0)),dim=0)</code>，也就是先把a变成了shape(1,2,3)，b也变成了shape(1,2,3)，然后在第0个维度上进行cat操作得到(2,2,3)！</p>
+]]></content>
+      <categories>
+        <category>torch</category>
+      </categories>
+      <tags>
+        <tag>torch</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>torch随机初始化张量</title>
+    <url>/2023/01/torch/TorchRandomTensor.html</url>
+    <content><![CDATA[<h1>torch.rand</h1>
+<p>按照[0,1]均匀分布随机生成张量。</p>
+<h1>torch.randn</h1>
+<p>按照<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false">[</mo><mo>−</mo><mi mathvariant="normal">∞</mi><mo separator="true">,</mo><mo>+</mo><mi mathvariant="normal">∞</mi><mo stretchy="false">]</mo></mrow><annotation encoding="application/x-tex">[-\infty,+\infty ]</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">[</span><span class="mord">−</span><span class="mord">∞</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord">+</span><span class="mord">∞</span><span class="mclose">]</span></span></span></span>标准正态分布随机生成张量</p>
+<p>example:</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">torch.randn(<span class="number">4</span>)</span><br><span class="line"><span class="comment"># tensor([ 1.7556, -1.0983, -1.0894,  2.2767])</span></span><br><span class="line">torch.randn(<span class="number">2</span>, <span class="number">3</span>)</span><br><span class="line"><span class="comment"># tensor([[-0.6705,  0.5253, -0.8561],</span></span><br><span class="line"><span class="comment">#         [ 1.2273, -0.8864,  0.8902]])</span></span><br></pre></td></tr></table></figure>
+]]></content>
+      <categories>
+        <category>torch</category>
+      </categories>
+      <tags>
+        <tag>torch</tag>
+      </tags>
+  </entry>
 </search>

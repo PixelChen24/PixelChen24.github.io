@@ -1,6 +1,22 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
+    <loc>http://pixelchen.top/2023/01/torch/TorchStackAndCat.html</loc>
+    <lastmod>2023-01-05</lastmod>
+  </url>
+  <url>
+    <loc>http://pixelchen.top/2023/01/torch/TorchConvolution.html</loc>
+    <lastmod>2023-01-05</lastmod>
+  </url>
+  <url>
+    <loc>http://pixelchen.top/2023/01/torch/TorchRandomTensor.html</loc>
+    <lastmod>2023-01-05</lastmod>
+  </url>
+  <url>
+    <loc>http://pixelchen.top/2022/12/%E5%B7%A5%E5%85%B7/linux/LinuxKernalRelated.html</loc>
+    <lastmod>2022-12-24</lastmod>
+  </url>
+  <url>
     <loc>http://pixelchen.top/2022/12/PaperReading/OWOD/ViLDDigest.html</loc>
     <lastmod>2022-12-14</lastmod>
   </url>
