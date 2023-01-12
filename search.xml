@@ -841,7 +841,7 @@ t_i^\star&amp;=[t_x^\star,t_y^\star,t_w^\star,t_h^\star]
       </tags>
   </entry>
   <entry>
-    <title>torch中拼接向量</title>
+    <title>torch中拼接向量stack和cat的异同点</title>
     <url>/2023/01/torch/TorchStackAndCat.html</url>
     <content><![CDATA[<p>在torch中，我们要拼接两个张量时常用两个函数:<code>stack</code>和<code>cat</code>，这两种方法是有区别的。</p>
 <h1>cat</h1>
@@ -951,6 +951,59 @@ t_i^\star&amp;=[t_x^\star,t_y^\star,t_w^\star,t_h^\star]
       <tags>
         <tag>深度学习</tag>
         <tag>论文阅读</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>VisionTransformer与DETR</title>
+    <url>/2023/01/PaperReading/ViTAndDETR.html</url>
+    <content><![CDATA[<h1>Vision Transfomer结构:</h1>
+<p><img src="https://markdown-bed-pixel.oss-cn-shanghai.aliyuncs.com/typora/image-20221003191848390.png" alt="image-20221003191848390"></p>
+<hr>
+<h2 id="关于Attention-QKV的计算过程">关于Attention QKV的计算过程:</h2>
+<h3 id="q-k的计算">q k的计算:</h3>
+<p><img src="https://markdown-bed-pixel.oss-cn-shanghai.aliyuncs.com/typora/20210629222424786.png" alt="self-attention"></p>
+<ul>
+<li>共享的Wq Wk Wv矩阵</li>
+<li>可并行化计算(相比于RNN串行计算要快得多)</li>
+</ul>
+<h3 id="中间量">中间量</h3>
+<p><img src="https://markdown-bed-pixel.oss-cn-shanghai.aliyuncs.com/typora/20210608150753303.png" alt=""></p>
+<h3 id="最终输出">最终输出</h3>
+<p><img src="https://markdown-bed-pixel.oss-cn-shanghai.aliyuncs.com/typora/2021060816151080.png" alt="self-attention"></p>
+<h2 id="多头Attention">多头Attention:</h2>
+<p>其实就是把q k给拆开,Wq 和 Wk用分块矩阵分别乘</p>
+<p><img src="https://markdown-bed-pixel.oss-cn-shanghai.aliyuncs.com/typora/20210611140000545.png" alt="multi-head"></p>
+<p><img src="https://markdown-bed-pixel.oss-cn-shanghai.aliyuncs.com/typora/2021061114300873.png" alt="multi-head"></p>
+<p><img src="https://markdown-bed-pixel.oss-cn-shanghai.aliyuncs.com/typora/20210611145013976.png" alt="multi-head"></p>
+<p>将b1和b2拼接在一起：</p>
+<p><img src="https://markdown-bed-pixel.oss-cn-shanghai.aliyuncs.com/typora/20210611145548995.png" alt="multi-head"></p>
+<p>最后再通过矩阵W融合在一起(W可学习)</p>
+<p><img src="https://markdown-bed-pixel.oss-cn-shanghai.aliyuncs.com/typora/20210611150056777.png" alt="在这里插入图片描述"></p>
+<hr>
+<h1>DETR</h1>
+<h2 id="基本思想">基本思想</h2>
+<p>先使用CNN得到各个Patch作为输入 再套transformer做编码解码</p>
+<p>编码和ViT基本一样，解码直接预测100框</p>
+<h2 id="解码器结构：">解码器结构：</h2>
+<p><img src="https://markdown-bed-pixel.oss-cn-shanghai.aliyuncs.com/typora/image-20221003193127176.png" alt="image-20221003193127176"></p>
+<p><strong>object query是核心操作</strong></p>
+<p>Object Query是N个可以学习的向量(N远大于一张图片中可能出现的物体个数，例如N=100)，随机初始化(代码里是全零初始化)，在训练过程中object query会被迫使变得不同来反映位置信息。</p>
+]]></content>
+      <categories>
+        <category>论文阅读</category>
+      </categories>
+  </entry>
+  <entry>
+    <title>今日名言</title>
+    <url>/2023/01/%E6%84%9F%E6%82%9F/20230112FuckSentence.html</url>
+    <content><![CDATA[<p>大本钟下送快递——上边拜，下边寄</p>
+]]></content>
+      <categories>
+        <category>感悟</category>
+      </categories>
+      <tags>
+        <tag>日积月累</tag>
+        <tag>很皮</tag>
       </tags>
   </entry>
 </search>
