@@ -496,7 +496,7 @@ where\quad F_i&amp;=\sum_iP_{ij}
   </entry>
   <entry>
     <title>git基础使用指南</title>
-    <url>/2022/12/%E5%B7%A5%E5%85%B7/GitBasic.html</url>
+    <url>/2022/12/%E5%B7%A5%E5%85%B7/Git/GitBasic.html</url>
     <content><![CDATA[<h1>测试git是否已经正常配置</h1>
 <figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">ssh -T git@github.com</span><br></pre></td></tr></table></figure>
 <p>如果是已经正常配置了git，那么会出现:</p>
@@ -529,6 +529,7 @@ where\quad F_i&amp;=\sum_iP_{ij}
 ]]></content>
       <categories>
         <category>工具</category>
+        <category>Git</category>
       </categories>
       <tags>
         <tag>工具</tag>
@@ -1008,7 +1009,7 @@ t_i^\star&amp;=[t_x^\star,t_y^\star,t_w^\star,t_h^\star]
   </entry>
   <entry>
     <title>vscodeSSH优化使用体验</title>
-    <url>/2023/01/%E5%B7%A5%E5%85%B7/Linux/VscodeSSH.html</url>
+    <url>/2023/01/%E5%B7%A5%E5%85%B7/linux/VscodeSSH.html</url>
     <content><![CDATA[<p>相信有不少同学喜欢用VScode作为自己的主要开发编辑器，也经常在VScode里面使用自带的远程连接器链接自己的远程主机。在使用VScode连接远程服务器的时候会遇到一些麻烦，以我自己为例，有如下两点：</p>
 <ul>
 <li>
@@ -1028,12 +1029,26 @@ t_i^\star&amp;=[t_x^\star,t_y^\star,t_w^\star,t_h^\star]
 ]]></content>
       <categories>
         <category>工具</category>
-        <category>Linux</category>
+        <category>linux</category>
       </categories>
       <tags>
         <tag>工具</tag>
-        <tag>Linux</tag>
+        <tag>linux</tag>
         <tag>ssh</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Linux测网速</title>
+    <url>/2023/01/%E5%B7%A5%E5%85%B7/linux/SpeedtestInLinux.html</url>
+    <content><![CDATA[<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">sudo apt update</span><br><span class="line">sudo apt install speedtest-cli</span><br><span class="line"></span><br><span class="line">speedtest</span><br></pre></td></tr></table></figure>]]></content>
+      <categories>
+        <category>工具</category>
+        <category>linux</category>
+      </categories>
+      <tags>
+        <tag>工具</tag>
+        <tag>linux</tag>
+        <tag>网络</tag>
       </tags>
   </entry>
 </search>
