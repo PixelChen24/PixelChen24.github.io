@@ -1006,4 +1006,34 @@ t_i^\star&amp;=[t_x^\star,t_y^\star,t_w^\star,t_h^\star]
         <tag>很皮</tag>
       </tags>
   </entry>
+  <entry>
+    <title>vscodeSSH优化使用体验</title>
+    <url>/2023/01/%E5%B7%A5%E5%85%B7/Linux/VscodeSSH.html</url>
+    <content><![CDATA[<p>相信有不少同学喜欢用VScode作为自己的主要开发编辑器，也经常在VScode里面使用自带的远程连接器链接自己的远程主机。在使用VScode连接远程服务器的时候会遇到一些麻烦，以我自己为例，有如下两点：</p>
+<ul>
+<li>
+<p>服务器名称同质化。因为我使用的AutoDL平台的服务器比较多，他们家的服务器地址都是<code>region-41.seetacloud.com</code>打头的，只用端口号来区分服务器，因此如果使用多台他们家的服务器的话，就会发现VScode显示的列表里面就只有一个<code>region-41.seetacloud.com</code>,从而无法区分到底是哪一台。</p>
+</li>
+<li>
+<p>经常需要输入密码。相信这个很多人都遇到，不管是连接还是打开某个文件夹，都免不了要输入密码，对于懒人来说很不舒服。</p>
+</li>
+</ul>
+<p>针对上述两点麻烦，可以有如下的解决方案。</p>
+<h1>对于麻烦一</h1>
+<p>在连接远程服务器的时候，依次选择<code>Coonect to Host-&gt;Configure SSH Hosts-&gt;&lt;你的ssh配置文件，即你创建这个远程连接的时候选择的本地配置文件地址，一般是/home/username/.ssh/config&gt;</code>。点进去之后会发现你所有服务器都在这里面罗列着。</p>
+<p><img src="https://markdown-bed-pixel.oss-cn-shanghai.aliyuncs.com/typora/image-20230112210541697.png" alt="image-20230112210541697"></p>
+<p>默认<code>Host</code>的值是和<code>HostName</code>的值相等的。如果你想自定义命名你的服务器，你可以修改<code>Host</code>的值，就像上图我这样。这样以来，下次连接远程服务器的时候，VScode列表里显示的就是你自己取的名字啦！</p>
+<h1>对于麻烦二</h1>
+<p>将你本地的<code>~/.ssh/id_rsa.pub</code>(公钥)里面的内容复制一份，在服务器<code>/root/.ssh</code>(视具体服务器而定)文件夹下创建<code>authorized_keys</code>文件，将刚才复制的内容粘贴进去。然后还是在上文提到的那个本地ssh配置文件里面，添加<code>IdentituFile &quot;~/.ssh/id_rsa&quot;</code>这一行即可。下次你连接这台服务器或者在这台服务器上打开文件夹的时候，就不再需要再次输入密码了！</p>
+]]></content>
+      <categories>
+        <category>工具</category>
+        <category>Linux</category>
+      </categories>
+      <tags>
+        <tag>工具</tag>
+        <tag>Linux</tag>
+        <tag>ssh</tag>
+      </tags>
+  </entry>
 </search>

@@ -2,6 +2,15 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>http://pixelchen.top/2023/01/%E5%B7%A5%E5%85%B7/Linux/VscodeSSH.html</loc>
+    
+    <lastmod>2023-01-12</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
     <loc>http://pixelchen.top/2023/01/%E6%84%9F%E6%82%9F/20230112FuckSentence.html</loc>
     
     <lastmod>2023-01-12</lastmod>
@@ -429,6 +438,20 @@
     <priority>0.2</priority>
   </url>
   
+  <url>
+    <loc>http://pixelchen.top/tags/Linux/</loc>
+    <lastmod>2023-01-12</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>http://pixelchen.top/tags/ssh/</loc>
+    <lastmod>2023-01-12</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
 
   
   <url>
@@ -531,6 +554,13 @@
   
   <url>
     <loc>http://pixelchen.top/categories/%E6%84%9F%E6%82%9F/</loc>
+    <lastmod>2023-01-12</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>http://pixelchen.top/categories/%E5%B7%A5%E5%85%B7/Linux/</loc>
     <lastmod>2023-01-12</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
