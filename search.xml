@@ -1064,4 +1064,43 @@ t_i^\star&amp;=[t_x^\star,t_y^\star,t_w^\star,t_h^\star]
         <tag>网络</tag>
       </tags>
   </entry>
+  <entry>
+    <title>linux查看文件大小</title>
+    <url>/2023/01/uncategorized/index.html</url>
+    <content><![CDATA[<p>一般使用</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">ls -lh</span><br></pre></td></tr></table></figure>
+<p>查看文件和文件夹的大小，用<code>grep</code>来指定过滤某个文件</p>
+]]></content>
+  </entry>
+  <entry>
+    <title>ssh使用screen守护进程</title>
+    <url>/2023/01/%E5%B7%A5%E5%85%B7/linux/SSHScreen.html</url>
+    <content><![CDATA[<p>在使用服务器跑一些大项目的时候，经常会在一个ssh终端里面运行很久时间，这时候如果我们自己的主机断网了或者说ssh窗口意外关闭了，就会导致服务器程序终止运行。因为服务器端的程序进程是ssh的子进程，当父进程ssh被关闭后，子进程也跟着终止。</p>
+<h2 id="使用Screen守护SSH进程">使用Screen守护SSH进程</h2>
+<p>screen相当于是一个<strong>运行在服务器</strong>的终端模拟器。被sceen守护的ssh进程会话不会因为联结者断网或者关机而终止。</p>
+<h3 id="安装screen-Ubuntu">安装screen(Ubuntu)</h3>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">sudo apt update</span><br><span class="line">sudo apt install screen</span><br></pre></td></tr></table></figure>
+<h3 id="创建一个虚拟终端">创建一个虚拟终端</h3>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">screen -S name  # name是自己取的方便记忆的名字</span><br></pre></td></tr></table></figure>
+<p>执行这条命令后，马上就会进入到一个虚拟的终端里面去。在这里面执行的命令不会因为ssh断开而终止。所以在这里面跑起来程序之后，就可以放心的关机啦！</p>
+<h3 id="查看当前所有虚拟终端列表">查看当前所有虚拟终端列表</h3>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">screen -ls</span><br></pre></td></tr></table></figure>
+<h3 id="重新进入某个虚拟终端">重新进入某个虚拟终端</h3>
+<p>当过了一段时间我们需要ssh重新上线去观察服务器上的程序运行状态的时候，我们需要重新进入到这个终端里面。主要有两种方式：</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">screen -r  # 适用于只有一个虚拟终端，比较方便</span><br><span class="line">screen -r -S name  # 当有多个虚拟终端的时候，指定name进入</span><br></pre></td></tr></table></figure>
+<h3 id="从某个虚拟终端中退出">从某个虚拟终端中退出</h3>
+<p>有时候我们需要从虚拟终端返回到默认终端，只需按下快捷键<code>ctrl</code> <code>a</code> <code>d</code>。现在这个虚拟终端依然在后台运行。</p>
+<h3 id="彻底删除某个虚拟终端">彻底删除某个虚拟终端</h3>
+<p>让一个虚拟终端失效的唯一方法是删除他。同样的还是有若干种方式</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">screen -X -S name quit  # 适用于未进入虚拟终端时，指定name删除</span><br><span class="line">screen -X quit                  # 适用于在虚拟终端内部删除</span><br><span class="line">ctrl+d 快捷键                     # 也是在内部删除</span><br></pre></td></tr></table></figure>
+]]></content>
+      <categories>
+        <category>工具</category>
+        <category>linux</category>
+      </categories>
+      <tags>
+        <tag>工具</tag>
+        <tag>linux</tag>
+      </tags>
+  </entry>
 </search>
