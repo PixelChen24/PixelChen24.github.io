@@ -530,6 +530,8 @@ where\quad F_i&amp;=\sum_iP_{ij}
 <p>在GitHub上创建一个仓库，点击clone按钮，复制链接(注意是SSH，不是HTTPS)</p>
 <h2 id="推送代码">推送代码</h2>
 <figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">git remote add origin git@github.com:PixelChen24/OWOD_Graduate.git #相当于是为这个远程仓库起了个别名叫&quot;origin&quot;</span><br><span class="line">git push -u origin master # 向&quot;origin&quot;仓库也就是GitHub  的master分支提交代码</span><br></pre></td></tr></table></figure>
+<p>如果出现错误<code>error: src refspec main does not match any</code>可能是由于本地默认的分支是master，而GitHub的分支默认是main。因此，可以修改本地分支的名称为main:</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">git branch -m master main</span><br></pre></td></tr></table></figure>
 <h2 id="拉取代码">拉取代码</h2>
 <figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">git pull origin &lt;远程分支名&gt;:&lt;本地分支名&gt;  # 在origin仓库中，把指定的远程分支拉取到本地分支</span><br></pre></td></tr></table></figure>
 <h1>维护仓库</h1>
