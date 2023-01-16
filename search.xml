@@ -913,7 +913,7 @@ t_i^\star&amp;=[t_x^\star,t_y^\star,t_w^\star,t_h^\star]
   </entry>
   <entry>
     <title>对比学习与对比聚类</title>
-    <url>/2023/01/PaperReading/%E6%96%B9%E6%B3%95/ContrastiveLearningAndClustering.html</url>
+    <url>/2022/12/PaperReading/%E6%96%B9%E6%B3%95/ContrastiveLearningAndClustering.html</url>
     <content><![CDATA[<h1>对比学习概述</h1>
 <p>对比学习是无监督学习的一种。<strong>着重于</strong>学习同类实例之间的共同特征，区分非同类实例之间的不同。目标是学习出一个编码器，这个编码器能够对同类数据进行相似编码，并且使得不同类的数据编码结果尽可能不同。</p>
 <p>最经典的对比学习模型是<code>SimCLR</code>:</p>
@@ -1010,7 +1010,7 @@ t_i^\star&amp;=[t_x^\star,t_y^\star,t_w^\star,t_h^\star]
   <entry>
     <title>今日名言</title>
     <url>/2023/01/%E6%84%9F%E6%82%9F/20230112FuckSentence.html</url>
-    <content><![CDATA[<p>大本钟下送快递——上边拜，下边寄</p>
+    <content><![CDATA[<p>大本钟下送快递——上边摆，下边寄</p>
 ]]></content>
       <categories>
         <category>感悟</category>
@@ -1052,7 +1052,7 @@ t_i^\star&amp;=[t_x^\star,t_y^\star,t_w^\star,t_h^\star]
   </entry>
   <entry>
     <title>Linux测网速</title>
-    <url>/2023/01/%E5%B7%A5%E5%85%B7/linux/SpeedtestInLinux.html</url>
+    <url>/2022/12/%E5%B7%A5%E5%85%B7/linux/SpeedtestInLinux.html</url>
     <content><![CDATA[<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">sudo apt update</span><br><span class="line">sudo apt install speedtest-cli</span><br><span class="line"></span><br><span class="line">speedtest</span><br></pre></td></tr></table></figure>]]></content>
       <categories>
         <category>工具</category>
