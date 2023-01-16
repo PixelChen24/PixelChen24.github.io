@@ -1105,7 +1105,7 @@ t_i^\star&amp;=[t_x^\star,t_y^\star,t_w^\star,t_h^\star]
   </entry>
   <entry>
     <title>Proposal生成之Edge Boxes算法</title>
-    <url>/2023/01/%E4%BC%A0%E7%BB%9F%E7%9B%AE%E6%A0%87%E6%A3%80%E6%B5%8B/Proposal%E7%94%9F%E6%88%90/EdgeBoxes.html</url>
+    <url>/2023/01/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/%E4%BC%A0%E7%BB%9F%E7%9B%AE%E6%A0%87%E6%A3%80%E6%B5%8B/Proposal%E7%94%9F%E6%88%90/EdgeBoxes.html</url>
     <content><![CDATA[<p>最近在看一篇论文<a href="https://arxiv.org/abs/2201.06696">ProposalCLIP</a>，讲的是关于OpenCategoryDetection第一阶段Proposal生成的。其中用到了EdgeBoxes算法，以前没怎么了解过，遂去阅读论文了解了一下。</p>
 <h1>概述</h1>
 <p>本文是是ECCV2014的一篇关于目标检测的一篇文章，作者来自于微软研究院，属于大中牛范畴。本文并没有涉及到机器学习或是深度学习（毕竟是2014的文章嘛），其采用的是纯图像的方法。</p>
@@ -1143,7 +1143,7 @@ t_i^\star&amp;=[t_x^\star,t_y^\star,t_w^\star,t_h^\star]
 </ul>
 <hr>
 <p>综上，给出算法流程图，如下所示：</p>
-<p><img src="https://img-blog.csdn.net/20140922205823580?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvd3NqOTk4Njg5YWE=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/Center" alt="img"></p>
+<p><img src="https://markdown-bed-pixel.oss-cn-shanghai.aliyuncs.com/typora/20140922205823580" alt="img"></p>
 <h1>不足</h1>
 <p>通过测试发现，其评分较高的proposals均为近乎整幅图像，比如说，图像中有8个人，那么该算法评分最高的proposal肯定是同时包含了这8个人的，这一点不足，使得这个算法的含金量大大缩水，因为，在实际应用中，我想要的效果往往是，最高评分的几个proposal最好是单独的人，而不是8个人一起。</p>
 <p>至于原因，不难理解，上面已经说过了，本文不是基于“学习”的算法，没有训练过程，不可能像BING那样，训练了单独人体，那么最高评分的proposal肯定就是单独的人体，训练了汽车，那么最高评分的proposal肯定就是单独的汽车等等。。。</p>
@@ -1151,10 +1151,72 @@ t_i^\star&amp;=[t_x^\star,t_y^\star,t_w^\star,t_h^\star]
 <p><a href="http://blog.csdn.net/wsj998689aa/article/details/39476551">http://blog.csdn.net/wsj998689aa/article/details/39476551</a></p>
 ]]></content>
       <categories>
+        <category>深度学习</category>
         <category>传统目标检测</category>
         <category>Proposal生成</category>
       </categories>
       <tags>
+        <tag>目标检测</tag>
+        <tag>论文阅读</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>ProposalCLIP论文阅读</title>
+    <url>/2023/01/PaperReading/OWOD/ProposalCLIP.html</url>
+    <content><![CDATA[<p>这篇文章提出来的意义在于提出一种适合无监督学习Open Category目标检测 proposal生成阶段的算法<code>ProposalCLIP</code>。</p>
+<h1>研究的目的</h1>
+<p>提出一种能够产生高质量proposal、适合于无监督学习方式的建议框生成算法，用于挑出可能存在的物体。</p>
+<h1>算法详情</h1>
+<p>ProposalCLIP的流程图如下，主要可以分为四个部分:</p>
+<p><img src="https://markdown-bed-pixel.oss-cn-shanghai.aliyuncs.com/typora/image-20230116152223478.png" alt="image-20230116152223478"></p>
+<p>在abc三个部分中，作者主要聚焦于使用CLIP的语义信息来辅助挑选出高质量的Proposal，这里都不涉及反向传播训练，只有正向传播。所谓&quot;正确的Proposal&quot;，就是指和真实的IOU大于某一阈值（0.5）的Proposal，这些Proposal大体正确地框出了一整个物体，才是有价值的。</p>
+<ul>
+<li>若利用CLIP来对Proposal进行分类，通常是拿出最大的similarity对应的类别作为结果，并以之作为Proposal的objectness。但是作者发现这么做是有问题的。例如下图a本身是一个框的很好的框，然而计算出所属类别的概率却没有一边倒地偏向某一类。对于incorrect的Proposal，例如b，他的概率分布和a却差不多，因此难以用最大similarity来评估objectness进而区分他到底是correct的还是incorrect的。</li>
+</ul>
+<p><img src="https://markdown-bed-pixel.oss-cn-shanghai.aliyuncs.com/typora/image-20230116160530417.png" alt="image-20230116160530417"></p>
+<ul>
+<li>作者提出一个新的指标，CLIP similarity entropy，即一个Proposal所属类别概率的信息熵。用这个指标可以更好的区分正确与否的Proposal。作者从COCO、VOC和Visual Genome三个数据集中进行统计，得出了correct Proposal的分布规律：</li>
+</ul>
+<p><img src="https://markdown-bed-pixel.oss-cn-shanghai.aliyuncs.com/typora/image-20230116162049159.png" alt="image-20230116162049159"></p>
+<p><img src="https://markdown-bed-pixel.oss-cn-shanghai.aliyuncs.com/typora/image-20230116160354407.png" alt="image-20230116160354407"></p>
+<p>可以看出，correct Proposal总体的CLIP similarity entropy普遍比incorrect小（因为包含的物体类别比较明确，概率分布偏向于某个极端，所以熵小）。同时，correct普遍分布在低熵区域，incorrect分布在高熵区域。因此，可以用这个指标来区分correct/incorrect Proposal。</p>
+<p>然而就这样还不够，还存在一个物体局部的小框（上上上图c），他的熵也很小但是却是一个incorrect的Proposal，因此我们还需要一些别的手段来进一步过滤。也就是b和c做的事情</p>
+<p>在d中对上述得到的Proposal进行refine，通过回归他的坐标，来确定这个Proposal是否要被refine。</p>
+<h2 id="a-Initial-Proposal-Generation">a.Initial Proposal Generation</h2>
+<p>使用任意Proposal生成算法生成M个proposal<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false">{</mo><msub><mi>O</mi><mi>m</mi></msub><msubsup><mo stretchy="false">}</mo><mrow><mi>m</mi><mo>=</mo><mn>1</mn></mrow><mi>M</mi></msubsup></mrow><annotation encoding="application/x-tex">\{O_m\}_{m=1}^M</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1.0913em;vertical-align:-0.25em;"></span><span class="mopen">{</span><span class="mord"><span class="mord mathnormal" style="margin-right:0.02778em;">O</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.1514em;"><span style="top:-2.55em;margin-left:-0.0278em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">m</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mclose"><span class="mclose">}</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.8413em;"><span style="top:-2.4519em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight">m</span><span class="mrel mtight">=</span><span class="mord mtight">1</span></span></span></span><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight" style="margin-right:0.10903em;">M</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.2481em;"><span></span></span></span></span></span></span></span></span></span>，在本文中，作者采用的是EdgeBoxes的方法，详情可以见我的<a href="https://pixelchen.top/2023/01/%E4%BC%A0%E7%BB%9F%E7%9B%AE%E6%A0%87%E6%A3%80%E6%B5%8B/Proposal%E7%94%9F%E6%88%90/EdgeBoxes.html">另一篇文章</a></p>
+<h2 id="b-CLIP-Proposal-Selection">b.CLIP Proposal Selection</h2>
+<p>对于1中生成的每个proposal <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>O</mi><mi>m</mi></msub></mrow><annotation encoding="application/x-tex">O_m</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8333em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.02778em;">O</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.1514em;"><span style="top:-2.55em;margin-left:-0.0278em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">m</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span>，分别输入到ViT得到特征向量<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>V</mi><mi>m</mi></msub></mrow><annotation encoding="application/x-tex">V_m</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8333em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.22222em;">V</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.1514em;"><span style="top:-2.55em;margin-left:-0.2222em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">m</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span>。再产生C个文字编码<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false">{</mo><msub><mi>T</mi><mi>c</mi></msub><msubsup><mo stretchy="false">}</mo><mrow><mi>c</mi><mo>=</mo><mn>1</mn></mrow><mi>C</mi></msubsup></mrow><annotation encoding="application/x-tex">\{T_c\}_{c=1}^C</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1.0913em;vertical-align:-0.25em;"></span><span class="mopen">{</span><span class="mord"><span class="mord mathnormal" style="margin-right:0.13889em;">T</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.1514em;"><span style="top:-2.55em;margin-left:-0.1389em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">c</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mclose"><span class="mclose">}</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.8413em;"><span style="top:-2.4519em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight">c</span><span class="mrel mtight">=</span><span class="mord mtight">1</span></span></span></span><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight" style="margin-right:0.07153em;">C</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.2481em;"><span></span></span></span></span></span></span></span></span></span>，计算<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>V</mi><mi>m</mi></msub></mrow><annotation encoding="application/x-tex">V_m</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8333em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.22222em;">V</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.1514em;"><span style="top:-2.55em;margin-left:-0.2222em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">m</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span>和每个<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>T</mi><mi>c</mi></msub></mrow><annotation encoding="application/x-tex">T_c</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8333em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.13889em;">T</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.1514em;"><span style="top:-2.55em;margin-left:-0.1389em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">c</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span>的余弦距离。softmax之后就得到了这个proposal分别属于C个类别的概率。利用信息熵公式计算出这个proposal的 similarity entropy。</p>
+<p>这样的话我们可以计算出M个proposal各自的entropy，我们滤除前40%高的entropy对应的proposal，得到初筛结果T个proposal。</p>
+<p>接下来进行细筛</p>
+<p><img src="https://markdown-bed-pixel.oss-cn-shanghai.aliyuncs.com/typora/image-20230116125655486.png" alt="image-20230116125655486"></p>
+<p>第一项就是负的entropy，前面的系数用来限制这一项的值域；第二项就是最大概率，第三项是RPN输出的objectness，lambda用于平衡。这个数值越大的proposal越有可能是正确的proposal。</p>
+<h2 id="c-Graph-Based-Merging">c.Graph Based Merging</h2>
+<p>这东西被提出来是为了解决第三种错误的proposal，即只有一小块的proposal。</p>
+<p>定义一个无向图，以2中选出的每个proposal为节点，通过计算proposal之间的空间相似度(IOU)和语义相似度(CLIP特征向量余弦相似度)，我们可以决定任意两个proposal之间是否有边连接。我们找到这个无向图中的所有最大连通子图，去除只有单个节点的，将剩下的子图每一个子图中的proposal融合为一个。这样就融合得到了K个proposal。再把这K个proposal按照2中的方法去计算熵，将熵大于2中最大值的proposal删除，剩下的proposal就可以加入到2中得到的proposal里面去。</p>
+<h2 id="d-Regression-Refine">d.Regression Refine</h2>
+<p>这个部件使用MLP用来精修proposal的坐标。对于精修后的proposal，如果他的entropy小于原来的且和原来的proposal IOU大于0.75，那么就用精修后的proposal代替原来的。</p>
+<h1>性能效果</h1>
+<h2 id="AR性能">AR性能</h2>
+<ul>
+<li>闭集</li>
+</ul>
+<p><img src="https://markdown-bed-pixel.oss-cn-shanghai.aliyuncs.com/typora/image-20230116162648694.png" alt="image-20230116162648694"></p>
+<p>（我很好奇如果在全监督RPN里，加入这套过滤机制会发生什么？）</p>
+<ul>
+<li>开集</li>
+</ul>
+<p><img src="https://markdown-bed-pixel.oss-cn-shanghai.aliyuncs.com/typora/image-20230116164354317.png" alt="image-20230116164354317"></p>
+<h2 id="bcd组件的消融实验">bcd组件的消融实验</h2>
+<p><img src="https://markdown-bed-pixel.oss-cn-shanghai.aliyuncs.com/typora/image-20230116162725275.png" alt="image-20230116162725275"></p>
+<h2 id="correct-proposal产生效果">correct proposal产生效果</h2>
+<p><img src="https://markdown-bed-pixel.oss-cn-shanghai.aliyuncs.com/typora/image-20230116164712589.png" alt="image-20230116164712589"></p>
+]]></content>
+      <categories>
+        <category>论文阅读</category>
+        <category>开放世界目标检测</category>
+      </categories>
+      <tags>
+        <tag>深度学习</tag>
         <tag>目标检测</tag>
         <tag>论文阅读</tag>
       </tags>
