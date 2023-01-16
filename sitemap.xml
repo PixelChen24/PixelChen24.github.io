@@ -2,6 +2,51 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>http://pixelchen.top/2022/10/uncategorized/index.html</loc>
+    
+    <lastmod>2023-01-16</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>http://pixelchen.top/2022/12/%E5%B7%A5%E5%85%B7/linux/CompressFileInLinux.html</loc>
+    
+    <lastmod>2023-01-16</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>http://pixelchen.top/2022/11/%E5%B7%A5%E5%85%B7/Git/GitBasic.html</loc>
+    
+    <lastmod>2023-01-16</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>http://pixelchen.top/2023/01/uncategorized/index.html</loc>
+    
+    <lastmod>2023-01-16</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>http://pixelchen.top/2023/01/PaperReading/OWOD/ProposalCLIP.html</loc>
+    
+    <lastmod>2023-01-16</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
     <loc>http://pixelchen.top/2023/01/%E5%B7%A5%E5%85%B7/linux/VscodeSSH.html</loc>
     
     <lastmod>2023-01-16</lastmod>
@@ -74,15 +119,6 @@
   </url>
   
   <url>
-    <loc>http://pixelchen.top/2023/01/PaperReading/OWOD/ProposalCLIP.html</loc>
-    
-    <lastmod>2023-01-16</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
     <loc>http://pixelchen.top/2023/01/%E5%B7%A5%E5%85%B7/GoogleDriveFastToDownload.html</loc>
     
     <lastmod>2023-01-16</lastmod>
@@ -110,27 +146,9 @@
   </url>
   
   <url>
-    <loc>http://pixelchen.top/2022/10/uncategorized/index.html</loc>
-    
-    <lastmod>2023-01-16</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
     <loc>http://pixelchen.top/2023/01/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/%E4%BC%A0%E7%BB%9F%E7%9B%AE%E6%A0%87%E6%A3%80%E6%B5%8B/Proposal%E7%94%9F%E6%88%90/EdgeBoxes.html</loc>
     
     <lastmod>2023-01-16</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>http://pixelchen.top/2022/12/%E5%B7%A5%E5%85%B7/Git/GitBasic.html</loc>
-    
-    <lastmod>2023-01-13</lastmod>
     
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
@@ -183,15 +201,6 @@
   
   <url>
     <loc>http://pixelchen.top/2022/12/%E5%B7%A5%E5%85%B7/linux/SymbolLink.html</loc>
-    
-    <lastmod>2022-12-09</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>http://pixelchen.top/2022/12/%E5%B7%A5%E5%85%B7/linux/CompressFileInLinux.html</loc>
     
     <lastmod>2022-12-09</lastmod>
     
