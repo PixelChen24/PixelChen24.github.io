@@ -1223,7 +1223,7 @@ t_i^\star&amp;=[t_x^\star,t_y^\star,t_w^\star,t_h^\star]
   </entry>
   <entry>
     <title>Attention机制及其实现</title>
-    <url>/2023/01/PaperReading/%E6%96%B9%E6%B3%95/index.html</url>
+    <url>/2023/01/PaperReading/%E6%96%B9%E6%B3%95/AttentionModule.html</url>
     <content><![CDATA[<h1>什么是注意力机制</h1>
 <p>注意力机制是深度学习常用的一个小技巧(trick)，它有多种多样的实现形式，尽管实现方式多样，但是每一种注意力机制的实现的核心都是类似的，就是注意力。注意力机制的核心重点就是让网络关注到它更需要关注的地方。</p>
 <p>当我们使用卷积神经网络去处理图片的时候，<strong>我们会更希望卷积神经网络去注意应该注意的地方，而不是什么都关注</strong>，我们不可能手动去调节需要注意的地方，这个时候，<strong>如何让卷积神经网络去自适应的注意重要的物体变得极为重要</strong>。</p>
