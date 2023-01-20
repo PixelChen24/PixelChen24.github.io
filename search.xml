@@ -495,9 +495,9 @@ where\quad F_i&amp;=\sum_iP_{ij}
       </tags>
   </entry>
   <entry>
-    <title>git使用指南(慢慢更新咕咕咕)</title>
+    <title>git使用指南——基础篇(慢慢更新咕咕咕)</title>
     <url>/2022/11/%E5%B7%A5%E5%85%B7/Git/GitBasic.html</url>
-    <content><![CDATA[<h1>测试git是否已经正常配置</h1>
+    <content><![CDATA[<h1>首先试git是否已经正常配置</h1>
 <figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">ssh -T git@github.com</span><br></pre></td></tr></table></figure>
 <p>如果是已经正常配置了git，那么会出现:</p>
 <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">Hi PixelChen24! You&#x27;ve successfully authenticated, but GitHub does not provide shell access.</span><br></pre></td></tr></table></figure>
@@ -512,20 +512,29 @@ where\quad F_i&amp;=\sum_iP_{ij}
 <h2 id="在GitHub授权SSH访问">在GitHub授权SSH访问</h2>
 <p>GitHub右上角点头像<code>settings-&gt;SSH and GPG keys-&gt;New SSH key</code></p>
 <p>将上一步生成的ssh key内容(<code>~/.ssh/id_rsa.pub</code>里面的内容)复制到<code>Key</code>里面去。</p>
-<p>完成之后测试git是否已经成功配置。</p>
+<p>完成之后参考1测试git是否已经成功配置。</p>
 <hr>
-<h1>建立仓库</h1>
+<h1>使用Git来跟踪你的项目文件</h1>
 <h2 id="初始化文件夹">初始化文件夹</h2>
 <p>对于一个已经存在于本地的项目，使用</p>
 <figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">git init</span><br></pre></td></tr></table></figure>
 <p>来配置这个项目。</p>
 <h2 id="开始跟踪文件">开始跟踪文件</h2>
 <p>使用</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">git add *</span><br></pre></td></tr></table></figure>
-<p>跟踪这个项目下所有的文件</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">git add *  # 跟踪这个项目下所有的文件</span><br><span class="line">git add filename  # 跟踪filename的文件</span><br></pre></td></tr></table></figure>
 <h2 id="提交本次修改">提交本次修改</h2>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">git commit -m &quot;comments&quot;</span><br></pre></td></tr></table></figure>
-<p>将本次的修改记录下来并提交到本地数据库</p>
+<h3 id="查看修改状态">查看修改状态</h3>
+<p>刚刚修改过的文件处于&quot;未暂存&quot;的状态。我们可以通过<code>git status</code>来查看当前仓库处于未暂存状态的文件。</p>
+<p>例如</p>
+<p><img src="https://markdown-bed-pixel.oss-cn-shanghai.aliyuncs.com/typora/image-20230119131958905.png" alt="image-20230119131958905"></p>
+<h3 id="查看修改细节">查看修改细节</h3>
+<p>此时我们知道<code>.gitignore</code>和<code>.vscode/settings.json</code>是被修改过的，但是还不知道具体修改了什么。这时候我们可以用</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">git diff .gitignore</span><br></pre></td></tr></table></figure>
+<p>来查看<code>.gitignore</code>这个文件的修改内容。</p>
+<h3 id="提交修改">提交修改</h3>
+<p>在得知修改内容之后，我们需要和修改者交流，确定保留哪些更改。确定之后，就可以确认并提交本次修改了</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">git add .gitignore</span><br><span class="line">git commit -m &quot;comments&quot;</span><br></pre></td></tr></table></figure>
+<p>将本次的修改记录下来并提交到本地数据库。注意，每次更改过某个文件后，都应使用<code>git add filename</code>来跟踪这个文件,这样才能提交这个文件的修改。</p>
 <h2 id="创建云端代码仓库">创建云端代码仓库</h2>
 <p>在GitHub上创建一个仓库，点击clone按钮，复制链接(注意是SSH，不是HTTPS)</p>
 <h2 id="推送代码">推送代码</h2>
@@ -1284,6 +1293,47 @@ t_i^\star&amp;=[t_x^\star,t_y^\star,t_w^\star,t_h^\star]
       <tags>
         <tag>深度学习</tag>
         <tag>工具</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>git使用指南——版本回退</title>
+    <url>/2023/01/%E5%B7%A5%E5%85%B7/Git/CommitReverse.html</url>
+    <content><![CDATA[<p>省流：本文教你如何回退commit</p>
+<h1>查看commit历史信息</h1>
+<p>commit相当于是git为项目文件创建的一个快照，能够保存现场，方便恢复。</p>
+<p>可以通过<code>git log</code>查看这个仓库的历史commit信息。输出类似如下：包括commit id（sha1），修改人，修改日期以及commit comment</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">commit f2762754a32392d4abafb17bcd5758fbb8f23ded (HEAD -&gt; master)</span><br><span class="line">Author: PixelChen24 &lt;cj1640867082@outlook.com&gt;</span><br><span class="line">Date:   Fri Jan 20 22:02:58 2023 +0800</span><br><span class="line"></span><br><span class="line">    second line in file2</span><br><span class="line"></span><br><span class="line">commit 75f3877ac6f184869cbbacf69d9132c5d90e76e8</span><br><span class="line">Author: PixelChen24 &lt;cj1640867082@outlook.com&gt;</span><br><span class="line">Date:   Fri Jan 20 22:01:42 2023 +0800</span><br><span class="line"></span><br><span class="line">    file2初始化一行字</span><br><span class="line"></span><br><span class="line">commit 6e86e38a56a37122584b8667b1d950a1a2bbe10d</span><br><span class="line">Author: PixelChen24 &lt;cj1640867082@outlook.com&gt;</span><br><span class="line">Date:   Fri Jan 20 22:00:11 2023 +0800</span><br><span class="line"></span><br><span class="line">    file1加了一行字</span><br></pre></td></tr></table></figure>
+<p>如果嫌输出的内容太多太杂乱，可以加上<code>--pretty=oneline</code>参数。</p>
+<h1>回退版本</h1>
+<p>如果我们想回退到某一次commit后的情景，该如何做？</p>
+<p>git中，用<code>HEAD</code>来指向当前的版本，上一个版本就是<code>HEAD^</code>，上上个就是<code>HEAD^^</code>。。。为了简化，一般记作<code>HEAD-n</code>，其中n表示HEAD之前的第n个版本。这非常像是一个单链表，节点结构体是</p>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">version</span>&#123;</span></span><br><span class="line">    <span class="type">int</span> commid_id;</span><br><span class="line">    <span class="type">char</span>* commit_comment;</span><br><span class="line">    <span class="comment">// ...</span></span><br><span class="line">    <span class="class"><span class="keyword">struct</span> <span class="title">version</span>* <span class="title">pre</span>;</span>  <span class="comment">//指向前一个节点。</span></span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p>如果我们想要从当前版本(current)回退到上一个版本(previous)，可以使用<code>git reset</code>指令：</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">git reset --hard HEAD^</span><br></pre></td></tr></table></figure>
+<p><code>--hard</code>参数的含义以后再说明。</p>
+<p>这样一来，HEAD指针会指向previous，我们就直接回到了previous版本，此时若再用<code>git log</code>查看commit历史信息，会发现最新的提交消失了。就好像是我们乘坐时光机从current时代穿越到了previous时代一样。</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">commit 75f3877ac6f184869cbbacf69d9132c5d90e76e8 (HEAD -&gt; master)</span><br><span class="line">Author: PixelChen24 &lt;cj1640867082@outlook.com&gt;</span><br><span class="line">Date:   Fri Jan 20 22:01:42 2023 +0800</span><br><span class="line"></span><br><span class="line">    file2初始化一行字</span><br><span class="line"></span><br><span class="line">commit 6e86e38a56a37122584b8667b1d950a1a2bbe10d</span><br><span class="line">Author: PixelChen24 &lt;cj1640867082@outlook.com&gt;</span><br><span class="line">Date:   Fri Jan 20 22:00:11 2023 +0800</span><br><span class="line"></span><br><span class="line">    file1加了一行字</span><br></pre></td></tr></table></figure>
+<p>如果此时后悔了想要回退到current版本，就不是那么容易了。**因为head只有指向前面节点的指针，没有指向后面节点的指针，所以不能像reset命令那样直接就把HEAD指针指向下一个节点了。不过好在reset指令执行后只是修改了HEAD的指向，并没有释放之前HEAD指向空间的内存。**因此只要我们知道之前HEAD指向的节点的“地址”，我们就能再次访问到之前节点。分为两种情况：</p>
+<ul>
+<li>
+<p>上次的终端未被关闭</p>
+<p>滑动鼠标向前找到之前终端的信息，可以找到之前的commit id <code>f2762754a32392d4abafb17bcd5758fbb8f23ded</code>，此时我们可以使用<code>git reset HEAD f276...(commit id)</code>回到current。commit id不一定要填完整，一般只要填四位就够了。</p>
+</li>
+<li>
+<p>上次的终端关闭了</p>
+<p>这种情况下我们就不能通过滚动鼠标的方式找到current的id了。这时我们需要使用<code>git reflog</code>来查看之前我们做过的所有操作。</p>
+  <figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">75f3877 (HEAD -&gt; master) HEAD@&#123;0&#125;: reset: moving to HEAD^</span><br><span class="line">f276275 HEAD@&#123;1&#125;: commit: second line in file2</span><br><span class="line">75f3877 (HEAD -&gt; master) HEAD@&#123;2&#125;: commit: file2初始化一行字</span><br><span class="line">6e86e38 HEAD@&#123;3&#125;: commit (initial): file1加了一行字</span><br></pre></td></tr></table></figure>
+<p>现在我们就能知道current的id了，就可以使用第一种方法回到current现场了。</p>
+</li>
+</ul>
+]]></content>
+      <categories>
+        <category>工具</category>
+        <category>Git</category>
+      </categories>
+      <tags>
+        <tag>工具</tag>
+        <tag>Git</tag>
       </tags>
   </entry>
 </search>
