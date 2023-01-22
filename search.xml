@@ -1363,4 +1363,43 @@ t_i^\star&amp;=[t_x^\star,t_y^\star,t_w^\star,t_h^\star]
         <tag>Git</tag>
       </tags>
   </entry>
+  <entry>
+    <title>解决双系统蓝牙设备需要重新配对的问题</title>
+    <url>/2023/01/%E5%B7%A5%E5%85%B7/linux/LinuxWindowsBluetooth.html</url>
+    <content><![CDATA[<p>在使用Linux+Windows双系统的时候，经常会在一个系统内配对一个蓝牙设备，切换到另一个系统却不能直接连接，需要先忘记之前的连接才能重新连上，非常影响使用体验。在此给出一种解决方案。</p>
+<h1>获取电脑蓝牙MAC地址和蓝牙设备MAC地址</h1>
+<h2 id="获取电脑蓝牙MAC">获取电脑蓝牙MAC</h2>
+<p>在Linux系统中，首先进入root账户</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">sudo su</span><br></pre></td></tr></table></figure>
+<p>进入蓝牙设备文件夹</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">cd /var/lib/bluetooth</span><br></pre></td></tr></table></figure>
+<p>查看电脑蓝牙MAC地址</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">ls</span><br></pre></td></tr></table></figure>
+<p>会看到类似如下信息：</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">root@chen:/var/lib/bluetooth# ls</span><br><span class="line">DC:FB:48:XX:XX:XX</span><br></pre></td></tr></table></figure>
+<p>这个就是你电脑的蓝牙MAC地址，现在进入这个文件夹</p>
+<h2 id="查看蓝牙配对秘钥">查看蓝牙配对秘钥</h2>
+<p>查看此电脑连接的所有蓝牙设备MAC地址<code>ls</code>，会看到类似如下信息：</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">root@chen:/var/lib/bluetooth/DC:FB:48:XX:XX:XX# ls</span><br><span class="line">50:64:2B:BE:XX:XX  B4:F1:8C:5D:XX:XX  cache  settings</span><br></pre></td></tr></table></figure>
+<p>你电脑连接了多少蓝牙设备，这里就会罗列多少个MAC地址。进入到你的蓝牙设备的文件夹后(<code>cd MAC地址</code>)，使用<code>cat info</code>查看这个蓝牙设备的信息，可以看到类似内容：</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">[General]</span><br><span class="line">Name=FreeBuds 3</span><br><span class="line">Class=0x240418</span><br><span class="line">SupportedTechnologies=BR/EDR;LE;</span><br><span class="line">Trusted=true</span><br><span class="line">Blocked=false</span><br><span class="line">Services=00001101-0000-1000-8000-00805f9b34fb;0000110b-0000-1000-8000-00805f9b34fb;0000110c-0000-1000-8000-00805f9b34fb;0000110e-0000-1000-8000-00805f9b34fb;0000111e-0000-1000-8000-00805f9b34fb;0000fd9a-0000-1000-8000-00805f9b34fb;</span><br><span class="line">AddressType=public</span><br><span class="line"></span><br><span class="line">[LinkKey]</span><br><span class="line">Key=CA84202D7802A1D797ED3163D463XXXX  # 需要复制的东西</span><br><span class="line">Type=4</span><br><span class="line">PINLength=0</span><br></pre></td></tr></table></figure>
+<p><code>Name</code>就是你的蓝牙设备的名称,你可以检查下是不是你想要操作的设备。我们需要复制<code>LinkKey-&gt;Key</code>的那个字符串</p>
+<h1>在Windows中操作</h1>
+<h2 id="下载工具">下载工具</h2>
+<p>去微软官网下载<a href="https://technet.microsoft.com/en-us/sysinternals/bb897553">PStools工具</a></p>
+<p>下载并解压后，在所在目录管理员身份打开cmd，执行命令打开注册表</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">PsExec.exe -s -i regedit</span><br></pre></td></tr></table></figure>
+<h2 id="将配对秘钥写入注册表">将配对秘钥写入注册表</h2>
+<p>找到<code>HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\services\BTHPORT\Parameters\Keys\</code>，将Key写入注册表。重启即可完成。</p>
+<p><a href="https://blog.51cto.com/u_15323724/3290275">参考文章</a></p>
+]]></content>
+      <categories>
+        <category>工具</category>
+        <category>linux</category>
+      </categories>
+      <tags>
+        <tag>工具</tag>
+        <tag>linux</tag>
+      </tags>
+  </entry>
 </search>
