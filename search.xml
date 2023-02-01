@@ -610,7 +610,7 @@ where\quad F_i&amp;=\sum_iP_{ij}
 <p>会比较麻烦，而且当把这个代码交给别人跑的时候别人也需要根据自己的情况自己重写这个地方的路径。</p>
 <h1>软链接</h1>
 <p>使用软链接，就可以在任意地方创建一个快捷方式，指向目标文件，不会占用额外空间，</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">ls -n /media/user/Disk/Data/VOC2012 /home/user/MyProject/VOC2012</span><br></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">ln -s /media/user/Disk/Data/VOC2012 /home/user/MyProject/VOC2012</span><br></pre></td></tr></table></figure>
 <p>现在你可以在<code>MyProject</code>下看见一个带箭头的文件夹，点进去之后会发现<code>/media/user/Disk/Data/VOC2012</code>中的所有数据都可以在这里被看见。</p>
 <p>现在在代码里，我们只需要写</p>
 <figure class="highlight python"><table><tr><td class="code"><pre><span class="line">VOC_root=load_data(<span class="string">&quot;VOC2012&quot;</span>)</span><br></pre></td></tr></table></figure>
@@ -1390,7 +1390,8 @@ t_i^\star&amp;=[t_x^\star,t_y^\star,t_w^\star,t_h^\star]
 <p>下载并解压后，在所在目录管理员身份打开cmd，执行命令打开注册表</p>
 <figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">PsExec.exe -s -i regedit</span><br></pre></td></tr></table></figure>
 <h2 id="将配对秘钥写入注册表">将配对秘钥写入注册表</h2>
-<p>找到<code>HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\services\BTHPORT\Parameters\Keys\</code>，将Key写入注册表。重启即可完成。</p>
+<p>找到<code>HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\services\BTHPORT\Parameters\Keys\</code>，将Key写入注册表(如下图)。重启即可完成。</p>
+<p><img src="https://markdown-bed-pixel.oss-cn-shanghai.aliyuncs.com/typora/be72eba65c4efe1a43fcb7d63146799f.png" alt="双系统蓝牙配对问题_ubuntu_04"></p>
 <p><a href="https://blog.51cto.com/u_15323724/3290275">参考文章</a></p>
 ]]></content>
       <categories>
