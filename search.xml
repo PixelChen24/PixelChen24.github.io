@@ -807,6 +807,9 @@ t_i^\star&amp;=[t_x^\star,t_y^\star,t_w^\star,t_h^\star]
 <li>固定Fast-RCNN训练好的前置卷积网络层参数(backbone)，微调RPN独有的卷积层和全连接参数。</li>
 <li>固定backbone，微调Fast-RCNN网络的全连接层参数，最后RPN和Fast-RCNN共享前置卷积网络层参数，构成一个统一的网络。</li>
 </ul>
+<h2 id="Faster-RCNN总体结构图">Faster RCNN总体结构图</h2>
+<p><img src="https://markdown-bed-pixel.oss-cn-shanghai.aliyuncs.com/typora/fasterRCNN.png" alt="Faster R-CNN"></p>
+<p>黄色框代表仅在训练阶段有</p>
 ]]></content>
       <categories>
         <category>深度学习</category>
