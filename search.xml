@@ -1406,4 +1406,36 @@ t_i^\star&amp;=[t_x^\star,t_y^\star,t_w^\star,t_h^\star]
         <tag>linux</tag>
       </tags>
   </entry>
+  <entry>
+    <title>opencv python调用edge-boxes算法</title>
+    <url>/2023/02/%E5%B7%A5%E5%85%B7/opencv/opencv-edge-boxes.html</url>
+    <content><![CDATA[<p>Edge-Boxes算法是目标检测任务中常见的proposal生成器，和ss(Selective Search)算法并称两大传统proposal生成算法。Edge-Boxes算法主要是利用边缘信息，生成可能包含物体的proposal。</p>
+<p>在OpenCV Python中已经有此算法的实现。需要依赖<code>opencv-contrib-python</code>这个包。如果你已经装了这个包但还是报错说没有<code>ximgproc</code>这个module，你可以删掉你已安装的关于OpenCV的所有pip包，然后 <strong>只装一个</strong> <code>opencv-contrib-python</code>就好。</p>
+<p>(关于这个问题，opencv pypi官方文档是这样说的，</p>
+<ul>
+<li>If you have previous version of OpenCV installed remove it before installation to avoid conflicts.</li>
+<li>There are 4 different opencv packages: <code>opencv-python</code>, <code>opencv-contrib-python</code>, <code>opencv-python-headless</code>, <code>opencv-contrib-python-headless</code>.</li>
+<li>You can only install one. Multiple opencv packages are incompatible.)</li>
+</ul>
+<p><code>model.yml.gz</code>可以在<a href="https://github.com/opencv/opencv_extra/blob/master/testdata/cv/ximgproc/model.yml.gz">这里</a>下载到。代码中需要调节参数，控制一张图内最多出现的proposal个数</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> cv2 <span class="keyword">as</span> cv</span><br><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">&quot;__main__&quot;</span>:</span><br><span class="line">    model = <span class="string">&quot;model.yml.gz&quot;</span>  <span class="comment"># 模型文件</span></span><br><span class="line">    im = cv.imread(<span class="string">&quot;xxx.jpg&quot;</span>)  <span class="comment"># 读取图片</span></span><br><span class="line">    edge_detection = cv.ximgproc.createStructuredEdgeDetection(model)</span><br><span class="line">    rgb_im = cv.cvtColor(im, cv.COLOR_BGR2RGB)</span><br><span class="line">    edges = edge_detection.detectEdges(np.float32(rgb_im) / <span class="number">255.0</span>)</span><br><span class="line"></span><br><span class="line">    orimap = edge_detection.computeOrientation(edges)</span><br><span class="line">    edges = edge_detection.edgesNms(edges, orimap)</span><br><span class="line"></span><br><span class="line">    edge_boxes = cv.ximgproc.createEdgeBoxes()</span><br><span class="line">    edge_boxes.setMaxBoxes(<span class="number">100</span>)  <span class="comment"># 一张图中proposal最大数量</span></span><br><span class="line">    boxes = edge_boxes.getBoundingBoxes(edges, orimap)[<span class="number">0</span>]</span><br><span class="line">    <span class="built_in">print</span>(<span class="built_in">len</span>(boxes))</span><br><span class="line">    <span class="keyword">for</span> b <span class="keyword">in</span> boxes:</span><br><span class="line">        x, y, w, h = b</span><br><span class="line">        cv.rectangle(im, (x, y), (x + w, y + h), (<span class="number">0</span>, <span class="number">255</span>, <span class="number">0</span>), <span class="number">1</span>, cv.LINE_AA)</span><br><span class="line"></span><br><span class="line">    cv.imshow(<span class="string">&quot;edges&quot;</span>, edges)</span><br><span class="line">    cv.imshow(<span class="string">&quot;edgeboxes&quot;</span>, im)</span><br><span class="line">    cv.waitKey(<span class="number">0</span>)</span><br><span class="line">    cv.destroyAllWindows()</span><br></pre></td></tr></table></figure>
+<p><img src="https://markdown-bed-pixel.oss-cn-shanghai.aliyuncs.com/typora/image-20230209195347017.png" alt="image-20230209195347017"></p>
+]]></content>
+      <categories>
+        <category>工具</category>
+        <category>opencv</category>
+      </categories>
+      <tags>
+        <tag>opencv</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>每日英语</title>
+    <url>/2023/02/uncategorized/index.html</url>
+    <content><![CDATA[<ul>
+<li>consecutive</li>
+</ul>
+<p>连续的</p>
+]]></content>
+  </entry>
 </search>
