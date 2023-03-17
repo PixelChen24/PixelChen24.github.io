@@ -1431,11 +1431,35 @@ t_i^\star&amp;=[t_x^\star,t_y^\star,t_w^\star,t_h^\star]
   </entry>
   <entry>
     <title>每日英语</title>
-    <url>/2023/02/uncategorized/index.html</url>
+    <url>/2023/02/%E8%8B%B1%E8%AF%AD/index.html</url>
     <content><![CDATA[<ul>
 <li>consecutive</li>
 </ul>
 <p>连续的</p>
 ]]></content>
+      <categories>
+        <category>英语</category>
+      </categories>
+  </entry>
+  <entry>
+    <title>每日英语</title>
+    <url>/2023/03/%E8%8B%B1%E8%AF%AD/index.html</url>
+    <content><![CDATA[<ul>
+<li>synthesize 合成</li>
+</ul>
+<p>In particular, for any new classification task, one can first <strong>synthesize</strong> the classification weights by giving sentence describing task-relevant categories to the text encoder, and then compare with image features produced by the image encoder.————From <em>Learning to prompt for Vision-Language Models</em></p>
+<p>对于一个新的分类任务，首先可以使用一个句子来描述待检测的类别，将之输入到text encoder 获取分类权重(text embedding)，然后将之与image encoder输出的特征进行比较。</p>
+<ul>
+<li>non-trival 非凡的</li>
+</ul>
+<p>However, identifying the right prompt is a <strong>non-trivial</strong> task, which often takes a significant amount of time for words tuning—a slight change in wording could make a huge difference in performance.</p>
+<ul>
+<li>orthogonal 正交的</li>
+</ul>
+<p>英文释义：Orthogonal means relating to or involving lines that are perpendicular or that form right angles.</p>
+]]></content>
+      <categories>
+        <category>英语</category>
+      </categories>
   </entry>
 </search>
